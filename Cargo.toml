@@ -12,13 +12,14 @@ edition = "2021"
 version = "1.0.2"
 
 [dependencies]
-anyhow = "1.0.86"
+anyhow = "1.0.92"
 ark-bn254 = "0.4.0"
 ark-ec = "0.4.2"
 ark-ff = "0.4.2"
 ark-groth16 = "0.4.0"
 ark-serialize = "0.4.2"
 ark-snark = "0.4.0"
+clap = { version = "4.5.20", features = ["derive"] }
 lazy_static = "1.5.0"
 num-bigint = "0.4.6"
 num-traits = "0.2.19"
