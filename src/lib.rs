@@ -13,6 +13,7 @@ mod hash_to_field;
 mod kzg;
 mod prove;
 mod transcript;
+mod types;
 mod verify;
 
 pub enum ProvingSystem {

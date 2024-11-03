@@ -12,22 +12,22 @@ struct Cli {
     /// Verifying key
     verifying_key: PathBuf,
 
-    /// Verifying key
-    proving_system: Option<PrvSystem>,
+    /// public inputs
+    public: PathBuf,
 }
 
 fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-    let proof = std::fs::read(cli.proof)?;
-    let vk = std::fs::read(cli.verifying_key)?;
-    let method = cli.proving_system.unwrap_or_default();
+    // let proof = std::fs::read(cli.proof)?;
+    // let vk = std::fs::read(cli.verifying_key)?;
+    // let public = fs::fs::read(cli.public)?;
 
-    if verify(&proof, &vk, &[Fr::from(1u8), Fr::from(7u8)], method.into()) {
-        println!("Proof is valid");
-    } else {
-        println!("Proof is invalid");
-    }
+    // if verify(&proof, &vk, &[Fr::from(1u8), Fr::from(7u8)], method.into()) {
+    //     println!("Proof is valid");
+    // } else {
+    //     println!("Proof is invalid");
+    // }
 
     Ok(())
 }
