@@ -3,6 +3,31 @@ use num_traits::Num;
 use serde::de::{Deserialize, Deserializer};
 use serde::Serializer;
 
+/// Proof
+#[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub struct VerificationKey {
+    protocol: Protocol,
+    curve: Curve,
+    vk_alpha_1: G2Point,
+    vk_beta_2: Vec<G1Point>,
+    vk_gamma_2: Vec<G1Point>,
+    vk_delta_2: Vec<G1Point>,
+    vk_alphabeta_12: Vec<Vec<G1Point>>,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum Protocol {
+    Groth16,
+}
+
+#[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
+#[serde(rename_all = "lowercase")]
+pub enum Curve {
+    Bn128,
+}
+
 ///  G1 Point.
 #[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
 pub struct G1Point {
@@ -10,6 +35,17 @@ pub struct G1Point {
     pub x: U252,
     /// Field y
     pub y: U252,
+}
+
+///  G2 Point.
+#[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
+pub struct G2Point {
+    /// Field x
+    pub x: U252,
+    /// Field y
+    pub y: U252,
+    /// Field z
+    pub z: U252,
 }
 
 #[derive(Debug, serde::Serialize, serde::Deserialize, PartialEq)]
@@ -77,5 +113,12 @@ mod tests {
         assert_eq!(p1, p2);
 
         println!("{:#?}", serde_json::to_string(&p1).unwrap());
+    }
+
+    #[test]
+    fn test_parse_verification() {
+        let json = std::fs::read_to_string("./data/verification_key.json").unwrap();
+        let _verif: VerificationKey = serde_json::from_str(&json).unwrap();
+        eprintln!("verification key: {_verif:?}");
     }
 }
